@@ -1,5 +1,24 @@
 [
     {
+        "title": "Subir Fondos / sin Enlaces  y Optimización",
+        "version": "v 1.0.9",
+        "author": "Agustin Benitez",
+        "date": "30-05-2025",
+        "contenido1":"Nueva función: Ahora puedes añadir imágenes de fondo directamente desde tu escritorio sin necesidad de enlaces externos",
+        "image": "src/patch-notes/v1.0.9.webp",
+        "contenido2": "Vista previa de imágenes: Las imágenes seleccionadas se muestran como vista previa antes de aplicarlas",
+        "contenido3": "Almacenamiento en Base64: Las imágenes se convierten a base64 y se guardan en localStorage para persistencia",
+        "contenido4": "Rendimiento mejorado:",
+        "contenido5": "Optimización del sistema de eventos con debouncing inteligente",
+        "contenido6": "Caché multinivel: Implementación de diferentes estrategias de caché según el tipo de dato",
+        "contenido7": "Arquitectura modular: Código reorganizado en módulos independientes para mayor escalabilidad",
+        "contenido8": "Compatibilidad total: Funciona perfectamente en Chrome, Edge y Firefox",
+        "contenido9": "Diseño responsive: Optimizado para diferentes tamaños de pantalla",
+        "contenido10": "Mejoras de accesibilidad: Interfaz más intuitiva y fácil de usar",
+        "contenido11": "Manejo robusto de errores: Sistema con fallbacks automáticos para mayor estabilidad",
+        "contenido12": "Compatibilidad con versiones anteriores: Todas las configuraciones existentes se mantienen"
+    },
+    {
         "title": "Favorites Feature Upgrades",
         "version": "v 1.0.8",
         "author": "Agustin Benitez",
