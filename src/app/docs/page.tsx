@@ -272,6 +272,18 @@ export default function Docs() {
                     </h2>
                     <p className="text-gray-400 mb-4">{t('docs.sections.advanced.performanceDesc')}</p>
                   </div>
+                  <div className="pt-8 border-t border-gray-800">
+                    <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                      <Star size={20} className="text-brand-purple" /> {t('docs.sections.advanced.favoritesTitle')}
+                    </h2>
+                    <p className="text-gray-400 mb-4">{t('docs.sections.advanced.favoritesDesc')}</p>
+                  </div>
+                  <div className="pt-8 border-t border-gray-800">
+                    <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                      <FileText size={20} className="text-brand-blue" /> {t('docs.sections.advanced.notesTitle')}
+                    </h2>
+                    <p className="text-gray-400 mb-4">{t('docs.sections.advanced.notesDesc')}</p>
+                  </div>
                 </div>
               </section>
             )}

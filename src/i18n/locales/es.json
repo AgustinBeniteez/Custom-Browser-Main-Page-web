@@ -150,7 +150,11 @@
         "templatesTitle": "Plantillas de Diseño",
         "templatesDesc": "Exporta e importa tus configuraciones en formato JSON. Comparte tu diseño con otros usuarios o mantén una copia de seguridad.",
         "performanceTitle": "Rendimiento",
-        "performanceDesc": "Configura la calidad de las animaciones y la optimización de recursos en el menú de configuración avanzada."
+        "performanceDesc": "Configura la calidad de las animaciones y la optimización de recursos en el menú de configuración avanzada.",
+        "favoritesTitle": "Favoritos Avanzados",
+        "favoritesDesc": "El administrador de favoritos admite carpetas, menús contextuales (clic derecho para editar/eliminar) y modos de visualización (Cuadrícula o Lista). Incluso puedes subir iconos personalizados para tus carpetas.",
+        "notesTitle": "Notas y Calendario",
+        "notesDesc": "El editor estilo IDE incluye título, etiquetas y colores. Todas las notas se indexan en el calendario integrado para una navegación rápida por fecha."
       },
       "community": {
         "title": "Comunidad y Contribución",

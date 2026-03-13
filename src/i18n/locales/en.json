@@ -150,7 +150,11 @@
         "templatesTitle": "Design Templates",
         "templatesDesc": "Export and import your configurations in JSON format. Share your design with other users or keep a backup.",
         "performanceTitle": "Performance",
-        "performanceDesc": "Configure animation quality and resource optimization in the advanced settings menu."
+        "performanceDesc": "Configure animation quality and resource optimization in the advanced settings menu.",
+        "favoritesTitle": "Advanced Favorites",
+        "favoritesDesc": "The favorites manager supports folders, context menus (right-click to edit/delete), and display modes (Square or List). You can even upload custom icons for your folders.",
+        "notesTitle": "Notes & Calendar",
+        "notesDesc": "The IDE-style editor includes title, tags, and colors. All notes are indexed in the built-in calendar for quick browsing by date."
       },
       "community": {
         "title": "Community & Contribution",
