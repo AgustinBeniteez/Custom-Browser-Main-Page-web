@@ -1,0 +1,179 @@
+{
+  "nav": {
+    "features": "Características",
+    "patchNotes": "Notas de Parche",
+    "docs": "Documentación",
+    "github": "GitHub",
+    "download": "Descargar"
+  },
+  "hero": {
+    "title": "Tu nueva pestaña,",
+    "subtitle": "totalmente personalizada",
+    "description": "Transforma tu navegador con un dashboard elegante, widgets inteligentes, notas estilo IDE y total control sobre tu espacio de trabajo.",
+    "installChrome": "Instalar en Chrome",
+    "installFirefox": "Instalar en Firefox"
+  },
+  "features": {
+    "title": "Todo lo que necesitas",
+    "description": "Diseñado para la productividad y el minimalismo.",
+    "notes": {
+      "title": "Notas IDE",
+      "description": "Editor de notas integrado con etiquetas, colores y fijado."
+    },
+    "favorites": {
+      "title": "Favoritos",
+      "description": "Gestiona tus sitios más visitados con carpetas y menús contextuales."
+    },
+    "customization": {
+      "title": "Personalización Total",
+      "description": "Cambia fondos (subida o URL), elige entre 9+ fuentes premium y cualquier color de acento."
+    },
+    "widgets": {
+      "title": "Widgets Inteligentes",
+      "description": "Monitoreo de CPU y RAM en tiempo real, clima en vivo y temporizador Pomodoro en un solo lugar."
+    },
+    "layout": {
+      "title": "Layout Avanzado",
+      "description": "Espacio de trabajo estilo IDE con edición drag-and-drop y plantillas de diseño."
+    }
+  },
+  "patchNotes": {
+    "title": "Notas de Parche",
+    "viewMore": "Ver todas las versiones",
+    "latestVersion": "Última Versión",
+    "versions": {
+      "v109": {
+        "title": "Subir Fondos / sin Enlaces y Optimización",
+        "c1": "Nueva función: Ahora puedes añadir imágenes de fondo directamente desde tu escritorio sin necesidad de enlaces externos.",
+        "c2": "Vista previa de imágenes: Las imágenes seleccionadas se muestran como vista previa antes de aplicarlas.",
+        "c3": "Almacenamiento en Base64: Las imágenes se convierten a base64 y se guardan en localStorage para persistencia.",
+        "c4": "Rendimiento mejorado:",
+        "c5": "Optimización del sistema de eventos con debouncing inteligente.",
+        "c6": "Caché multinivel: Implementación de diferentes estrategias de caché según el tipo de dato.",
+        "c7": "Arquitectura modular: Código reorganizado en módulos independientes.",
+        "c8": "Compatibilidad total: Funciona perfectamente en Chrome, Edge y Firefox.",
+        "c9": "Diseño responsive: Optimizado para diferentes tamaños de pantalla.",
+        "c10": "Mejoras de accesibilidad: Interfaz más intuitiva.",
+        "c11": "Manejo robusto de errores: Sistema con fallbacks automáticos.",
+        "c12": "Compatibilidad con versiones anteriores: Se mantienen las configuraciones."
+      },
+      "v108": {
+        "title": "Mejoras en Favoritos",
+        "c1": "Nuevos ajustes para posicionar la barra de favoritos en la parte inferior.",
+        "c2": "Ahora puedes crear carpetas en Favoritos y arrastrar elementos fácilmente."
+      },
+      "v107": {
+        "title": "Lanzamiento estable inicial",
+        "c1": "Reloj integrado: Consulta la hora sin distracciones.",
+        "c2": "Gestión de Notas: Crea, edita y elimina notas fácilmente.",
+        "c3": "Exportar Notas: Exporta tus notas a un archivo .txt.",
+        "c4": "Fondo personalizable: Elige entre fondo estático o animado.",
+        "c5": "Interfaz simplificada: El menú de notas solo aparece cuando es necesario.",
+        "c6": "Tipografía personalizable: Cambia la fuente según tu estilo.",
+        "c7": "Opciones de idioma: Interfaz en 8 idiomas diferentes.",
+        "c8": "Diseño intuitivo: Experiencia visual atractiva y funcional."
+      }
+    }
+  },
+  "footer": {
+    "madeWith": "Hecho con ❤️ para la comunidad."
+  },
+  "docs": {
+    "back": "Volver",
+    "title": "Documentación",
+    "sidebar": {
+      "gettingStarted": "Inicio",
+      "introduction": "Introducción",
+      "installation": "Instalación",
+      "features": "Características",
+      "visuals": "Visuales y Temas",
+      "widgets": "Widgets y Herramientas",
+      "advanced": "Avanzado",
+      "performance": "Rendimiento",
+      "layout": "Diseño y Exportación",
+      "community": "Comunidad",
+      "contributing": "Contribución",
+      "issues": "Reportar errores"
+    },
+    "sections": {
+      "introduction": {
+        "title": "Introducción",
+        "description": "Custom Browser Main Page es un dashboard para tu navegador, diseñado para reemplazar la pestaña nueva por defecto con una experiencia altamente personalizable y productiva.",
+        "customizable": "Totalmente Personalizable",
+        "customizableDesc": "Cada elemento, desde el fondo hasta los widgets, puede ser ajustado a tus necesidades.",
+        "ideDesign": "Diseño IDE",
+        "ideDesignDesc": "Interfaz inspirada en herramientas de desarrollo para un flujo de trabajo profesional.",
+        "whyTitle": "¿Por qué elegirnos?",
+        "why1": "Privacidad Total: No recolectamos tus datos.",
+        "why2": "Ligero y rápido: Optimizado para no ralentizar tu navegador.",
+        "why3": "Código Abierto: Cualquiera puede auditar o contribuir al proyecto."
+      },
+      "installation": {
+        "title": "Instalación",
+        "chromeTitle": "Chrome & Edge",
+        "chromeDesc": "La forma más sencilla es instalar desde la Chrome Web Store:",
+        "chromeBtn": "Ir a Chrome Web Store",
+        "firefoxTitle": "Mozilla Firefox",
+        "firefoxDesc": "Disponible en Firefox Add-ons:",
+        "firefoxBtn": "Ir a Firefox Add-ons",
+        "manualTitle": "Instalación Manual (Desarrollador)",
+        "manualStep1": "# 1. Clonar el repositorio",
+        "manualStep2": "# 2. Cargar en el navegador",
+        "manualStep2Desc": "Ir a chrome://extensions/ o about:debugging",
+        "manualStep3Desc": "Activar 'Modo Desarrollador' y seleccionar la carpeta del proyecto."
+      },
+      "visuals": {
+        "title": "Visuales y Temas",
+        "wallpapersTitle": "Fondos Personalizados",
+        "wallpapersDesc": "Puedes elegir entre varias opciones para tu fondo de pantalla:",
+        "wallpapersOption1": "Galería Integrada: Selecciona fondos predefinidos de alta calidad.",
+        "wallpapersOption2": "Subida Local: Sube tus propias imágenes directamente desde tu PC.",
+        "wallpapersOption3": "URL Externa: Pega un enlace de cualquier imagen en la web.",
+        "typographyTitle": "Tipografías",
+        "typographyDesc": "Contamos con 9 tipografías seleccionadas para mejorar tu experiencia visual, desde estilos modernos hasta manuscritos."
+      },
+      "widgets": {
+        "title": "Widgets y Herramientas",
+        "systemTitle": "Estado del Sistema",
+        "systemDesc": "Monitorea el uso de CPU y RAM de tu dispositivo en tiempo real directamente desde la pestaña nueva (Solo disponible en Chrome).",
+        "weatherTitle": "Clima en Tiempo Real",
+        "weatherDesc": "Información meteorológica precisa gracias a Open-Meteo. Puedes configurar tu ubicación manualmente o usar el buscador.",
+        "pomodoroTitle": "Temporizador Pomodoro",
+        "pomodoroDesc": "Gestiona tus ciclos de trabajo y descanso con un temporizador integrado y controles de sonido.",
+        "calendarTitle": "Calendario y Notas",
+        "calendarDesc": "Visualiza el mes actual y accede rápidamente a tus notas fijadas más importantes."
+      },
+      "advanced": {
+        "title": "Funciones Avanzadas",
+        "editModeTitle": "Modo Edición",
+        "editModeDesc": "Activa el modo edición para reposicionar cualquier widget mediante drag-and-drop. Crea el layout que mejor se adapte a tu flujo de trabajo.",
+        "templatesTitle": "Plantillas de Diseño",
+        "templatesDesc": "Exporta e importa tus configuraciones en formato JSON. Comparte tu diseño con otros usuarios o mantén una copia de seguridad.",
+        "performanceTitle": "Rendimiento",
+        "performanceDesc": "Configura la calidad de las animaciones y la optimización de recursos en el menú de configuración avanzada."
+      },
+      "community": {
+        "title": "Comunidad y Contribución",
+        "improveTitle": "¿Quieres mejorar el proyecto?",
+        "improveDesc": "Somos un proyecto de código abierto y agradecemos cualquier tipo de contribución: traducciones, código, diseño o reporte de errores.",
+        "githubBtn": "Ir a GitHub",
+        "reportTitle": "Reportar un error",
+        "reportDesc": "Si encuentras un bug, por favor ábrelo en la sección de Issues de GitHub.",
+        "reportBtn": "Abrir Issue",
+        "translationsTitle": "Traducciones",
+        "translationsDesc": "Ayúdanos a llevar la extensión a más idiomas contribuyendo en translations.json."
+      }
+    }
+  },
+  "homeDocs": {
+    "title": "Documentación",
+    "description": "Custom Browser Main Page es un proyecto de código abierto diseñado para darte el control total. Consulta nuestra guía de contribución, reporta errores o solicita nuevas funciones en GitHub.",
+    "openSource": "Código Abierto",
+    "openSourceDesc": "Licencia MIT. ¡Siéntete libre de bifurcar!",
+    "devGuide": "Guía de Desarrollo",
+    "devGuideDesc": "Cómo compilar e instalar manualmente.",
+    "contribute": "¿Quieres contribuir?",
+    "contributeDesc": "Estamos siempre buscando colaboradores para mejorar las traducciones, añadir nuevos widgets o pulir el diseño.",
+    "repoBtn": "Ir al repositorio"
+  }
+}
