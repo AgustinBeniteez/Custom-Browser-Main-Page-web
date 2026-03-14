@@ -12,6 +12,28 @@ export const metadata: Metadata = {
     shortcut: "/logo.png",
     apple: "/logo.png",
   },
+  openGraph: {
+    title: "Custom Browser Main Page",
+    description: "Transform your browser's new tab into a powerful, personalized dashboard.",
+    url: "https://custom-browser-main-page.vercel.app/",
+    siteName: "Custom Browser Main Page",
+    images: [
+      {
+        url: "/assets/extensionShare.webp",
+        width: 1200,
+        height: 630,
+        alt: "Custom Browser Main Page Preview",
+      },
+    ],
+    locale: "es_ES",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Custom Browser Main Page",
+    description: "Transform your browser's new tab into a powerful, personalized dashboard.",
+    images: ["/assets/extensionShare.webp"],
+  },
 };
 
 import { I18nProvider } from "@/i18n/I18nContext";
