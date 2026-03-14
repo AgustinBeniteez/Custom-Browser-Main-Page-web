@@ -173,7 +173,7 @@ export default function Home() {
       </section>
 
       {/* Features Grid (Bento Grid Style) */}
-      <section id="features" className="w-full max-w-7xl px-6 py-24 bg-[#0a0a0a]/50">
+      <section id="features" className="w-full max-w-7xl px-6 py-24">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">{t('features.title')}</h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">{t('features.description')}</p>
