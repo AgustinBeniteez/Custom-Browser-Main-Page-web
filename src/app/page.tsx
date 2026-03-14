@@ -3,8 +3,8 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Github, BookOpen, ScrollText, ExternalLink, ArrowRight, Layout } from "lucide-react";
-import { motion } from "framer-motion";
+import { Github, BookOpen, ScrollText, ExternalLink, ArrowRight, Layout, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import patchNotesData from "../patch-notes.json";
 import { useI18n } from "@/i18n/I18nContext";
 import LanguageSelector from "@/components/LanguageSelector";
@@ -13,10 +13,55 @@ import { ChromeIcon, FirefoxIcon } from "@/components/BrowserIcons";
 export default function Home() {
   const { t } = useI18n();
   const [mounted, setMounted] = React.useState(false);
+  const [isHovered, setIsHovered] = React.useState(false);
+  const [isAutoPreview, setIsAutoPreview] = React.useState(false);
+  const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
+  const [currentSlide, setCurrentSlide] = React.useState(0);
 
   React.useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Carrusel automático cada 11s
+  React.useEffect(() => {
+    const slideTimer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % 3);
+    }, 11000);
+    return () => clearInterval(slideTimer);
+  }, []);
+
+  const getImagePath = (index: number, isHover: boolean) => {
+    const base = `/assets/previews/preview-extension${index}${isHover ? 'Hover' : ''}`;
+    // Manejar las extensiones inconsistentes según el sistema de archivos
+    if (index === 0) return `${base}.webp`;
+    if (index === 1) return isHover ? `${base}.webp.png` : `${base}.webp.webp`;
+    if (index === 2) return isHover ? `${base}.webp.png` : `${base}.webp.webp`;
+    return `${base}.webp`;
+  };
+
+  // Lógica de hover/auto-preview dentro de cada slide
+  React.useEffect(() => {
+    let timer: NodeJS.Timeout;
+
+    if (isHovered) {
+      setIsAutoPreview(false);
+      return;
+    }
+
+    if (!isAutoPreview) {
+      // Esperar 7s de inactividad para mostrar el preview
+      timer = setTimeout(() => {
+        setIsAutoPreview(true);
+      }, 7000);
+    } else {
+      // Mostrar el preview durante 2s y luego volver a normal
+      timer = setTimeout(() => {
+        setIsAutoPreview(false);
+      }, 2000);
+    }
+
+    return () => clearTimeout(timer);
+  }, [isHovered, isAutoPreview, currentSlide]); // Se reinicia al cambiar de slide
 
   return (
     <main className="flex flex-col items-center min-h-screen">
@@ -65,34 +110,66 @@ export default function Home() {
               <ChromeIcon size={22} /> {t('hero.installChrome')}
             </a>
             <a 
-              href="https://addons.mozilla.org/es/firefox/addon/custom-browser-main-page/" 
-              target="_blank"
-              className="flex items-center justify-center gap-3 bg-[#E66000] text-white px-8 py-4 rounded-xl font-bold hover:shadow-lg hover:scale-[1.02] transition-all hover:bg-[#FF9500]"
+              href="https://addons.mozilla.org/en-US/firefox/addon/custom-browser-main-page/" 
+              target="_blank" 
+              className="flex items-center justify-center gap-3 bg-gradient-brand text-white px-8 py-4 rounded-xl font-bold hover:shadow-lg hover:scale-[1.02] transition-all hover:opacity-90"
             >
               <FirefoxIcon size={22} /> {t('hero.installFirefox')}
             </a>
           </div>
         </motion.div>
 
-        {/* Preview Image */}
-        <motion.div 
-          className="mt-20 relative w-full max-w-5xl"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
+        {/* Preview Image Carousel */}
+        <div 
+          className="mt-20 relative w-full max-w-5xl cursor-pointer overflow-hidden"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
-          <div className="absolute -inset-1 bg-gradient-brand rounded-2xl blur opacity-30 animate-pulse"></div>
-          <div className="relative bg-[#1a1a1a] rounded-2xl border border-gray-800 overflow-hidden shadow-2xl">
-            <Image 
-              src="/assets/preview-extension.webp" 
-              alt="Preview" 
-              width={1200} 
-              height={675} 
-              className="w-full h-auto"
-              priority
-            />
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSlide}
+              initial={{ x: 300, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -300, opacity: 0 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              className="relative aspect-[16/9] w-full"
+            >
+              {/* Base Image */}
+              <Image 
+                src={getImagePath(currentSlide, false)} 
+                alt={`Preview ${currentSlide}`} 
+                width={1200} 
+                height={675} 
+                className={`w-full h-auto transition-opacity duration-700 absolute inset-0 cursor-zoom-in ${
+                  (isHovered || isAutoPreview) ? 'opacity-0' : 'opacity-100'
+                }`}
+                onClick={() => setSelectedImage(getImagePath(currentSlide, false))}
+                priority
+              />
+              {/* Hover Image */}
+              <Image 
+                src={getImagePath(currentSlide, true)} 
+                alt={`Preview Hover ${currentSlide}`} 
+                width={1200} 
+                height={675} 
+                className={`w-full h-auto transition-opacity duration-700 absolute inset-0 cursor-zoom-in ${
+                  (isHovered || isAutoPreview) ? 'opacity-100' : 'opacity-0'
+                }`}
+                onClick={() => setSelectedImage(getImagePath(currentSlide, true))}
+              />
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Carousel Indicators */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+            {[0, 1, 2].map((idx) => (
+              <div 
+                key={idx}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${currentSlide === idx ? 'bg-brand-purple w-6' : 'bg-white/30'}`}
+              />
+            ))}
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* Features Grid (Bento Grid Style) */}
@@ -116,7 +193,13 @@ export default function Home() {
               <p className="text-gray-400 text-sm leading-relaxed">{t('features.notes.description')}</p>
             </div>
             <div className="flex-1 relative h-full min-h-[150px] md:min-h-0 rounded-2xl overflow-hidden border border-gray-800">
-              <Image src="/assets/notes.webp" alt="Notes" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+              <Image 
+                src="/assets/notes.webp" 
+                alt="Notes" 
+                fill 
+                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 cursor-zoom-in" 
+                onClick={() => setSelectedImage("/assets/notes.webp")}
+              />
             </div>
           </motion.div>
 
@@ -131,7 +214,13 @@ export default function Home() {
             <h3 className="text-2xl font-bold text-white mb-3">{t('features.favorites.title')}</h3>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">{t('features.favorites.description')}</p>
             <div className="mt-auto relative h-full min-h-[200px] rounded-2xl overflow-hidden border border-gray-800">
-              <Image src="/assets/favs.webp" alt="Favorites" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+              <Image 
+                src="/assets/favs.webp" 
+                alt="Favorites" 
+                fill 
+                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 cursor-zoom-in" 
+                onClick={() => setSelectedImage("/assets/favs.webp")}
+              />
             </div>
           </motion.div>
 
@@ -150,9 +239,15 @@ export default function Home() {
                   {t('features.widgets.description')}
                 </p>
               </div>
-              <div className="flex-1 relative h-full min-h-[150px] md:min-h-0 rounded-2xl overflow-hidden border border-gray-800">
-                <Image src="/assets/preview-extension.webp" alt="Widgets" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
-              </div>
+              <div className="flex-1 relative h-full min-h-[150px] md:min-h-0">
+                  <Image 
+                    src="/assets/Widgets.webp" 
+                    alt="Widgets" 
+                    fill 
+                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 cursor-zoom-in" 
+                    onClick={() => setSelectedImage("/assets/Widgets.webp")}
+                  />
+                </div>
             </div>
           </motion.div>
 
@@ -170,16 +265,16 @@ export default function Home() {
             </div>
             <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="relative h-full min-h-[120px] rounded-xl overflow-hidden border border-gray-800">
-                <Image src="/assets/custom.webp" alt="Custom" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                <Image src="/assets/custom.webp" alt="Custom" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 cursor-zoom-in" onClick={() => setSelectedImage("/assets/custom.webp")} />
               </div>
               <div className="relative h-full min-h-[120px] rounded-xl overflow-hidden border border-gray-800">
-                <Image src="/assets/reloj-color.webp" alt="Color" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                <Image src="/assets/reloj-color.webp" alt="Color" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 cursor-zoom-in" onClick={() => setSelectedImage("/assets/reloj-color.webp")} />
               </div>
               <div className="relative h-full min-h-[120px] rounded-xl overflow-hidden border border-gray-800">
-                <Image src="/assets/tipografia.webp" alt="Font" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                <Image src="/assets/tipografia.webp" alt="Font" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 cursor-zoom-in" onClick={() => setSelectedImage("/assets/tipografia.webp")} />
               </div>
               <div className="relative h-full min-h-[120px] rounded-xl overflow-hidden border border-gray-800">
-                <Image src="/assets/light&dark.webp" alt="Mode" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                <Image src="/assets/light&dark.webp" alt="Mode" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 cursor-zoom-in" onClick={() => setSelectedImage("/assets/light&dark.webp")} />
               </div>
             </div>
           </motion.div>
@@ -210,7 +305,8 @@ export default function Home() {
                   alt={patch.title} 
                   width={1200} 
                   height={675} 
-                  className="w-full h-auto transform hover:scale-[1.02] transition-transform duration-700" 
+                  className="w-full h-auto transform hover:scale-[1.02] transition-transform duration-700 cursor-zoom-in" 
+                  onClick={() => setSelectedImage(`/assets/patch-notes/${patch.version.replace('v ', 'v')}.webp`)}
                 />
               </div>
               <div className="p-8 md:p-12">
@@ -310,6 +406,54 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Preload images for carousel */}
+      <div className="hidden pointer-events-none" aria-hidden="true">
+        {[0, 1, 2].map((idx) => (
+          <React.Fragment key={idx}>
+            <Image src={getImagePath(idx, false)} alt="" width={10} height={10} priority />
+            <Image src={getImagePath(idx, true)} alt="" width={10} height={10} priority />
+          </React.Fragment>
+        ))}
+      </div>
+
+      {/* Image Lightbox Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative max-w-7xl w-full h-full flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button 
+                onClick={() => setSelectedImage(null)}
+                className="absolute top-[-40px] right-0 text-white hover:text-brand-purple transition-colors p-2"
+              >
+                <X size={32} />
+              </button>
+              <div className="relative w-full h-full flex items-center justify-center">
+                <Image 
+                  src={selectedImage} 
+                  alt="Full size preview" 
+                  width={1920} 
+                  height={1080} 
+                  className="max-w-full max-h-full object-contain rounded-xl shadow-2xl"
+                  priority
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

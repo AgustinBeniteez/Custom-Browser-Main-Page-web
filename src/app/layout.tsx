@@ -7,6 +7,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Custom Browser Main Page",
   description: "Transform your browser's new tab into a powerful, personalized dashboard.",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 import { I18nProvider } from "@/i18n/I18nContext";

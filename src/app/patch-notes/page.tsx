@@ -3,7 +3,8 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ScrollText, Github } from "lucide-react";
+import { ArrowLeft, ScrollText, Github, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import patchNotesData from "../../patch-notes.json";
 import { useI18n } from "@/i18n/I18nContext";
 import LanguageSelector from "@/components/LanguageSelector";
@@ -11,6 +12,7 @@ import LanguageSelector from "@/components/LanguageSelector";
 export default function PatchNotes() {
   const { t } = useI18n();
   const [mounted, setMounted] = React.useState(false);
+  const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     setMounted(true);
@@ -51,7 +53,8 @@ export default function PatchNotes() {
                   alt={patch.title} 
                   width={1200} 
                   height={675} 
-                  className="w-full h-auto transform hover:scale-[1.02] transition-transform duration-1000"
+                  className="w-full h-auto transform hover:scale-[1.02] transition-transform duration-1000 cursor-zoom-in"
+                  onClick={() => setSelectedImage(`/assets/patch-notes/${patch.version.replace('v ', 'v')}.webp`)}
                 />
               </div>
               <div className="p-8 md:p-12">
@@ -84,6 +87,44 @@ export default function PatchNotes() {
       <footer className="w-full py-12 px-6 border-t border-gray-800 text-center text-gray-500 text-sm" suppressHydrationWarning>
         © {mounted ? new Date().getFullYear() : "2026"} Agustin Benitez. {t('footer.madeWith')}
       </footer>
+
+      {/* Image Lightbox Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative max-w-7xl w-full h-full flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button 
+                onClick={() => setSelectedImage(null)}
+                className="absolute top-[-40px] right-0 text-white hover:text-brand-purple transition-colors p-2"
+              >
+                <X size={32} />
+              </button>
+              <div className="relative w-full h-full flex items-center justify-center">
+                <Image 
+                  src={selectedImage} 
+                  alt="Full size preview" 
+                  width={1920} 
+                  height={1080} 
+                  className="max-w-full max-h-full object-contain rounded-xl shadow-2xl"
+                  priority
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
