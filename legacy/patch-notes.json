@@ -1,5 +1,20 @@
 [
     {
+        "title": "Gran Rediseño y Editor de Posiciones",
+        "version": "v 2.0.1",
+        "author": "Agustin Benitez",
+        "date": "14-03-2026",
+        "contenido1": "Rediseño completo de la extensión con un nuevo editor de posiciones para personalizar tu espacio.",
+        "image": "src/patch-notes/v2.0.1.webp",
+        "contenido2": "Nuevos widgets inteligentes: Calendario, Pomodoro, Estadísticas de PC (RAM/CPU), Tiempo en una ciudad y Notas.",
+        "contenido3": "Diferentes diseños para favoritos: horizontal, vertical, lista y cuadrados.",
+        "contenido4": "Menú de ajustes mejorado: cambia fondos, tipografía y fondos de widgets transparentes.",
+        "contenido5": "Nuevo IDE de Notas y Calendario: sincronización de fechas entre notas y visualización en el calendario.",
+        "contenido6": "Nuevo sistema de plantillas: personaliza, guarda, exporta e importa copias de seguridad.",
+        "contenido7": "Plantillas por defecto incluidas para empezar rápidamente.",
+        "contenido8": "Personalización de iconos para carpetas de favoritos."
+    },
+    {
         "title": "Subir Fondos / sin Enlaces  y Optimización",
         "version": "v 1.0.9",
         "author": "Agustin Benitez",

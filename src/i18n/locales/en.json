@@ -42,6 +42,17 @@
     "viewMore": "View all versions",
     "latestVersion": "Latest Version",
     "versions": {
+      "v201": {
+        "title": "Major Redesign and Layout Editor",
+        "c1": "Complete redesign of the extension with a new layout editor to customize your space.",
+        "c2": "New smart widgets: Calendar, Pomodoro, PC Stats (RAM/CPU), City Weather, and Notes.",
+        "c3": "Different favorite designs: horizontal, vertical, list, and squares.",
+        "c4": "Improved settings menu: change backgrounds, typography, and transparent widget backgrounds.",
+        "c5": "New Notes and Calendar IDE: date synchronization between notes and calendar display.",
+        "c6": "New template system: customize, save, export, and import backups.",
+        "c7": "Default templates included to get started quickly.",
+        "c8": "Customizable icons for favorite folders."
+      },
       "v109": {
         "title": "Background Upload / No Links & Optimization",
         "c1": "New Feature: Now you can add background images directly from your desktop without external links.",
