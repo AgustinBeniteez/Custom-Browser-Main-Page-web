@@ -92,6 +92,7 @@
   "docs": {
     "back": "Volver",
     "title": "Documentación",
+    "onThisPage": "En esta página",
     "sidebar": {
       "gettingStarted": "Inicio",
       "introduction": "Introducción",

@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Github, BookOpen, ScrollText, ExternalLink, ArrowRight, Layout, X } from "lucide-react";
+import { Github, BookOpen, ScrollText, ExternalLink, ArrowRight, Layout, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import patchNotesData from "../patch-notes.json";
 import { useI18n } from "@/i18n/I18nContext";
@@ -17,6 +17,14 @@ export default function Home() {
   const [isAutoPreview, setIsAutoPreview] = React.useState(false);
   const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
   const [currentSlide, setCurrentSlide] = React.useState(0);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % 3);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + 3) % 3);
+  };
 
   React.useEffect(() => {
     setMounted(true);
@@ -121,10 +129,26 @@ export default function Home() {
 
         {/* Preview Image Carousel */}
         <div 
-          className="mt-20 relative w-full max-w-5xl cursor-pointer overflow-hidden"
+          className="mt-20 relative w-full max-w-5xl cursor-pointer overflow-hidden group"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
+          {/* Botones de navegación */}
+          <button 
+            onClick={(e) => { e.stopPropagation(); prevSlide(); }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-sm border border-white/10"
+            aria-label="Anterior slide"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button 
+            onClick={(e) => { e.stopPropagation(); nextSlide(); }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-sm border border-white/10"
+            aria-label="Siguiente slide"
+          >
+            <ChevronRight size={24} />
+          </button>
+
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -163,9 +187,11 @@ export default function Home() {
           {/* Carousel Indicators */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
             {[0, 1, 2].map((idx) => (
-              <div 
+              <button 
                 key={idx}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${currentSlide === idx ? 'bg-brand-purple w-6' : 'bg-white/30'}`}
+                onClick={(e) => { e.stopPropagation(); setCurrentSlide(idx); }}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${currentSlide === idx ? 'bg-brand-purple w-6' : 'bg-white/30 hover:bg-white/50'}`}
+                aria-label={`Ir al slide ${idx + 1}`}
               />
             ))}
           </div>
@@ -179,11 +205,11 @@ export default function Home() {
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">{t('features.description')}</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[280px]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:auto-rows-[280px] auto-rows-auto">
           {/* Card 1: Notas (Ancha) */}
           <motion.div 
             whileHover={{ y: -5 }}
-            className="md:col-span-8 bg-[#161616] rounded-3xl border border-gray-800 p-8 flex flex-col md:flex-row gap-8 overflow-hidden group shadow-lg hover:border-brand-blue/50 transition-all duration-300"
+            className="md:col-span-8 bg-[#161616] rounded-3xl border border-gray-800 p-8 flex flex-col md:flex-row gap-8 overflow-hidden group shadow-lg hover:border-brand-blue/50 transition-all duration-300 h-full"
           >
             <div className="flex-1">
               <div className="bg-brand-blue/20 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
@@ -192,7 +218,7 @@ export default function Home() {
               <h3 className="text-2xl font-bold text-white mb-3">{t('features.notes.title')}</h3>
               <p className="text-gray-400 text-sm leading-relaxed">{t('features.notes.description')}</p>
             </div>
-            <div className="flex-1 relative h-full min-h-[150px] md:min-h-0 rounded-2xl overflow-hidden border border-gray-800">
+            <div className="flex-1 relative min-h-[200px] md:min-h-0 md:h-full rounded-2xl overflow-hidden border border-gray-800">
               <Image 
                 src="/assets/notes.webp" 
                 alt="Notes" 
@@ -206,14 +232,14 @@ export default function Home() {
           {/* Card 2: Favoritos (Alta) */}
           <motion.div 
             whileHover={{ y: -5 }}
-            className="md:col-span-4 md:row-span-2 bg-[#161616] rounded-3xl border border-gray-800 p-8 flex flex-col group shadow-lg hover:border-brand-purple/50 transition-all duration-300"
+            className="md:col-span-4 md:row-span-2 bg-[#161616] rounded-3xl border border-gray-800 p-8 flex flex-col group shadow-lg hover:border-brand-purple/50 transition-all duration-300 h-full"
           >
             <div className="bg-brand-purple/20 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
               <ExternalLink className="text-brand-purple" />
             </div>
             <h3 className="text-2xl font-bold text-white mb-3">{t('features.favorites.title')}</h3>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">{t('features.favorites.description')}</p>
-            <div className="mt-auto relative h-full min-h-[200px] rounded-2xl overflow-hidden border border-gray-800">
+            <div className="mt-auto relative min-h-[250px] md:h-full rounded-2xl overflow-hidden border border-gray-800">
               <Image 
                 src="/assets/favs.webp" 
                 alt="Favorites" 
@@ -227,7 +253,7 @@ export default function Home() {
           {/* Card 3: Widgets (Ancha) */}
           <motion.div 
             whileHover={{ y: -5 }}
-            className="md:col-span-8 bg-gradient-brand rounded-3xl p-[1px] group shadow-xl transition-all duration-300"
+            className="md:col-span-8 bg-gradient-brand rounded-3xl p-[1px] group shadow-xl transition-all duration-300 h-full"
           >
             <div className="bg-[#161616] w-full h-full rounded-3xl p-8 flex flex-col md:flex-row gap-8 overflow-hidden">
               <div className="flex-1">
@@ -239,7 +265,7 @@ export default function Home() {
                   {t('features.widgets.description')}
                 </p>
               </div>
-              <div className="flex-1 relative h-full min-h-[150px] md:min-h-0">
+              <div className="flex-1 relative min-h-[200px] md:min-h-0 md:h-full rounded-2xl overflow-hidden border border-gray-800">
                   <Image 
                     src="/assets/Widgets.webp" 
                     alt="Widgets" 
@@ -254,7 +280,7 @@ export default function Home() {
           {/* Card 4: Personalización (Ancha) */}
           <motion.div 
             whileHover={{ y: -5 }}
-            className="md:col-span-12 bg-[#161616] rounded-3xl border border-gray-800 p-8 flex flex-col md:flex-row gap-12 overflow-hidden group shadow-lg hover:border-brand-blue/50 transition-all duration-300"
+            className="md:col-span-12 bg-[#161616] rounded-3xl border border-gray-800 p-8 flex flex-col md:flex-row gap-12 overflow-hidden group shadow-lg hover:border-brand-blue/50 transition-all duration-300 h-full"
           >
             <div className="flex-[0.5]">
               <div className="bg-brand-blue/20 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
@@ -263,17 +289,17 @@ export default function Home() {
               <h3 className="text-2xl font-bold text-white mb-3">{t('features.customization.title')}</h3>
               <p className="text-gray-400 text-sm leading-relaxed mb-6">{t('features.customization.description')}</p>
             </div>
-            <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="relative h-full min-h-[120px] rounded-xl overflow-hidden border border-gray-800">
+            <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4 min-h-[200px] md:min-h-0">
+              <div className="relative h-full rounded-xl overflow-hidden border border-gray-800">
                 <Image src="/assets/custom.webp" alt="Custom" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 cursor-zoom-in" onClick={() => setSelectedImage("/assets/custom.webp")} />
               </div>
-              <div className="relative h-full min-h-[120px] rounded-xl overflow-hidden border border-gray-800">
+              <div className="relative h-full rounded-xl overflow-hidden border border-gray-800">
                 <Image src="/assets/reloj-color.webp" alt="Color" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 cursor-zoom-in" onClick={() => setSelectedImage("/assets/reloj-color.webp")} />
               </div>
-              <div className="relative h-full min-h-[120px] rounded-xl overflow-hidden border border-gray-800">
+              <div className="relative h-full rounded-xl overflow-hidden border border-gray-800">
                 <Image src="/assets/tipografia.webp" alt="Font" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 cursor-zoom-in" onClick={() => setSelectedImage("/assets/tipografia.webp")} />
               </div>
-              <div className="relative h-full min-h-[120px] rounded-xl overflow-hidden border border-gray-800">
+              <div className="relative h-full rounded-xl overflow-hidden border border-gray-800">
                 <Image src="/assets/light&dark.webp" alt="Mode" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 cursor-zoom-in" onClick={() => setSelectedImage("/assets/light&dark.webp")} />
               </div>
             </div>

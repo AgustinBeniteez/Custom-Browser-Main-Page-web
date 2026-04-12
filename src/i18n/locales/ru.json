@@ -92,6 +92,7 @@
   "docs": {
     "back": "Назад",
     "title": "Документация",
+    "onThisPage": "На этой странице",
     "sidebar": {
       "gettingStarted": "Начало работы",
       "introduction": "Введение",
